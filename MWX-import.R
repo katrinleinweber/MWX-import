@@ -21,7 +21,8 @@ import_MWXs <- function(skip,
                              header = TRUE,
                              skip = skip,
                              sep = "\t",
-                             dec = ","))
+                             dec = ",")
+                      )
 
   # remove default observation & variable
   if (clean) {
@@ -30,15 +31,16 @@ import_MWXs <- function(skip,
     rownames(MWX_data) <- NULL
   }
 
-  # split ample names into variables
+  # split sample names into variables
   if (name_sep != FALSE) {
     MWX_data <- cbind(MWX_data,
                       colsplit(string = MWX_data$Sample,
                                pattern = name_sep,
-                               names = new_names))
+                               names = new_names)
+                      )
   }
-
-  return(MWX_data)}
+  return(MWX_data)
+}
 
 # import demo with example files
 # adjust parameters & observe MWX_data object in RStudio
@@ -47,4 +49,5 @@ MWX_data <- import_MWXs(skip = 13,
                         name_sep = "_",
                         # Sample names like "150401aa_ax_manual_4" work-around
                         # in Swift II for encoding variables
-                        new_names = c("Plate", "Achmi", "Pipette", "uL_MeOH"))
+                        new_names = c("Plate", "Achmi", "Pipette", "uL_MeOH")
+                        )
