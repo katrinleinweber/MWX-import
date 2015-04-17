@@ -6,9 +6,9 @@ library(reshape2) # needed for colsplit
 
 import_MWXs <- function(skip,
                         # parameter defaults
-                        clean = T,
-                        name_sep = F,
-                        new_names = F) {
+                        clean = TRUE,
+                        name_sep = FALSE,
+                        new_names = FALSE) {
 
   # MWX files have to result from same method
   MWX_files <- list.files(getwd(), pattern = "\\.MWX")
@@ -24,26 +24,26 @@ import_MWXs <- function(skip,
                              dec = ","))
 
   # remove default observation & variable
-  if (clean == T) {
+  if (clean) {
     MWX_data <- MWX_data[MWX_data$Sample != "Reference",]
     MWX_data$X <- NULL
     rownames(MWX_data) <- NULL
-  } else if (clean == F) {} else {}
+  }
 
   # split ample names into variables
-  if (name_sep != F) {
+  if (name_sep != FALSE) {
     MWX_data <- cbind(MWX_data,
                       colsplit(string = MWX_data$Sample,
                                pattern = name_sep,
                                names = new_names))
-  } else if (name_sep == F) {} else {}
+  }
 
   return(MWX_data)}
 
 # import demo with example files
 # adjust parameters & observe MWX_data object in RStudio
 MWX_data <- import_MWXs(skip = 13,
-                        clean = F,
+                        clean = FALSE,
                         name_sep = "_",
                         # Sample names like "150401aa_ax_manual_4" work-around
                         # in Swift II for encoding variables
