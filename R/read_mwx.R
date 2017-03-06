@@ -1,8 +1,3 @@
-# Import function for .MWX files created by the
-# "Swift II Multi Wavelength Version 2.00" program (Biochrom Ltd)
-# Important: Ensure MWX export by activating "Export Spreadsheet" under
-# "Run > Medhod > Run Options"
-
 library(reshape2) # needed for colsplit
 
 import_MWX_files <- function(skip_lines,
