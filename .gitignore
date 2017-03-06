@@ -60,3 +60,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # User-defined
+.Rproj.user
