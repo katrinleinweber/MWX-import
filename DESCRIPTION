@@ -8,5 +8,6 @@ Description: Imports and cleans .MWX files created by the
     "Swift II Multi Wavelength Version 2.00" program (Biochrom Ltd). 
     To obtain those files activate "Export Spreadsheet" under 
     "Run > Medhod > Run Options".
+License: CC0
 Encoding: UTF-8
 LazyData: true
