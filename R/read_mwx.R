@@ -1,4 +1,3 @@
-
 #' import_MWX_files
 #'
 #' Imports and cleans .MWX files created by the "Swift II Multi Wavelength Version 2.00" program (Biochrom Ltd). To obtain those files activate "Export Spreadsheet" under "Run > Medhod > Run Options".
@@ -23,7 +22,7 @@ import_MWX_files <- function(skip_lines,
                           # of working directory via file selection dialogue
                           pattern = "\\.MWX"
   )
-  
+
   # merge data tables from MWX file into R dataframe
   MWX_df <- do.call("rbind",
                     lapply(X = MWX_files,
@@ -35,20 +34,20 @@ import_MWX_files <- function(skip_lines,
                            dec = ","
                     )
   )
-  
+
   # remove default observations & variables
   if (clean) {
     MWX_df <- MWX_df[MWX_df$Sample != "Reference",]
     MWX_df$X <- NULL
     rownames(MWX_df) <- NULL
   }
-  
+
   # split sample names into variables
   if (var_sep != FALSE) {
     MWX_df <- cbind(MWX_df,
                     reshape2::colsplit(string = MWX_df$Sample,
-                             pattern = var_sep,
-                             names = new_vars
+                                       pattern = var_sep,
+                                       names = new_vars
                     )
     )
   }
