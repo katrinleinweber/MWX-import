@@ -12,6 +12,9 @@
 # RStudio files
 .Rproj.user/
 
+# roxygen-generated docu
+man/
+
 # =========================
 # Operating System Files
 # =========================
