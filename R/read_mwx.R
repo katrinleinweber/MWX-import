@@ -1,4 +1,3 @@
-library(reshape2) # needed for colsplit
 
 import_MWX_files <- function(skip_lines,
                              # parameter defaults
@@ -38,7 +37,7 @@ import_MWX_files <- function(skip_lines,
   # split sample names into variables
   if (var_sep != FALSE) {
     MWX_df <- cbind(MWX_df,
-                    colsplit(string = MWX_df$Sample,
+                    reshape2::colsplit(string = MWX_df$Sample,
                              pattern = var_sep,
                              names = new_vars
                     )
