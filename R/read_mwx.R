@@ -18,22 +18,16 @@ import_MWX_files <- function(skip_lines,
                              new_vars = FALSE
 ) {
 
+  list.files(
                           # setwd(dirname(file.choose())) # alternative selection
                           # of working directory via file selection dialogue
-                          pattern = "\\.MWX"
-  )
-
-  # merge data tables from MWX file into R dataframe
-  MWX_df <- do.call("rbind",
-                    lapply(X = MWX_files,
-                           FUN = read.table,
-                           stringsAsFactors = FALSE,
-                           header = TRUE,
-                           skip = skip_lines,
-                           sep = "\t",
-                           dec = ","
-                    )
-  )
+                          pattern = "\\.MWX",
+                          recursive = TRUE
+  ) %>%
+    purrr::map_df(.f = readr::read_tsv,
+                  skip = skip_lines
+                  ) ->
+    MWX_df
 
   # remove default observations & variables
   if (clean) {
