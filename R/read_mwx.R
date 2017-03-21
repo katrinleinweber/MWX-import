@@ -11,22 +11,17 @@
 #'
 #' @export
 #'
-import_MWX_files <- function(skip_lines,
-                             # parameter defaults
-                             clean = TRUE,
-                             var_sep = FALSE,
-                             new_vars = FALSE
-) {
+import_MWX_files <- function(
+  skip_lines,
+  clean = TRUE,
+  var_sep = FALSE,
+  new_vars = FALSE) {
 
   list.files(
-                          # setwd(dirname(file.choose())) # alternative selection
-                          # of working directory via file selection dialogue
-                          pattern = "\\.MWX",
-                          recursive = TRUE
-  ) %>%
+    pattern = "\\.MWX",
+    recursive = TRUE) %>%
     purrr::map_df(.f = readr::read_tsv,
-                  skip = skip_lines
-                  ) ->
+                  skip = skip_lines) ->
     MWX_df
 
   # remove default observations & variables
