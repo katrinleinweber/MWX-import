@@ -3,7 +3,11 @@
 # Important: Ensure MWX export by activating "Export Spreadsheet" under
 # "Run > Medhod > Run Options"
 
-library(reshape2) # needed for colsplit
+## Change to using packages from tidyverse
+
+library(tidyr)
+library(readr)
+library(purrr)
 
 import_MWX_files <- function(skip_lines,
                              # parameter defaults
@@ -22,16 +26,7 @@ import_MWX_files <- function(skip_lines,
   )
   
   # merge data tables from MWX file into R dataframe
-  MWX_df <- do.call("rbind",
-                    lapply(X = MWX_files,
-                           FUN = read.table,
-                           stringsAsFactors = FALSE,
-                           header = TRUE,
-                           skip = skip_lines,
-                           sep = "\t",
-                           dec = ","
-                    )
-  )
+  MWX_df <- purrr::map_dfr(MWX_files, read_tsv, skip=skip_lines)
   
   # remove default observations & variables
   if (clean) {
@@ -42,12 +37,9 @@ import_MWX_files <- function(skip_lines,
   
   # split sample names into variables
   if (var_sep != FALSE) {
-    MWX_df <- cbind(MWX_df,
-                    colsplit(string = MWX_df$Sample,
-                             pattern = var_sep,
-                             names = new_vars
-                    )
-    )
+    ##using separate function from tidyr
+    MWX_df <- tidyr::separate(MWX_df, col=Sample, into=new_vars,sep = var_sep)
+  
   }
   return(MWX_df)
 }
