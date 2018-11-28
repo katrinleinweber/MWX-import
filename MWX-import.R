@@ -46,7 +46,7 @@ import_MWX_files <- function(skip_lines,
 
 # import demo with example files
 # adjust parameters & observe MWX_df object in RStudio
-MWX_demo <- import_MWX_files(skip_lines = 13,
+MWX_demo <- import_MWX_files(skip_lines = 14,
                              clean = FALSE,
                              var_sep = "_",
                              # Use this as a work-around for encoding variables names
