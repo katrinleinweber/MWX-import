@@ -3,11 +3,6 @@
 # Important: Ensure MWX export by activating "Export Spreadsheet" under
 # "Run > Medhod > Run Options"
 
-## Change to using packages from tidyverse
-
-library(tidyr)
-library(readr)
-library(purrr)
 
 import_MWX_files <- function(skip_lines,
                              # parameter defaults
@@ -26,7 +21,7 @@ import_MWX_files <- function(skip_lines,
   )
   
   # merge data tables from MWX file into R dataframe
-  MWX_df <- purrr::map_dfr(MWX_files, read_tsv, skip=skip_lines)
+  MWX_df <- purrr::map_dfr(MWX_files, readr::read_tsv, skip=skip_lines)
   
   # remove default observations & variables
   if (clean) {
